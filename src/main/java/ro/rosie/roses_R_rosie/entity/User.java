@@ -28,12 +28,23 @@ public class User {
     private String phone;
 
     @ToString.Include
+    @Column(unique = true, nullable = false)
     private String email;
 
+    @Column(nullable = false)
     private String password;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Order> orders;
+
+    @ToString.Include
+    private String defaultAddress;
+
+    @ToString.Include
+    private String defaultPaymentMethod;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Cart cart;
 
 }
 

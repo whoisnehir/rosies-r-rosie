@@ -4,37 +4,30 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
 @Entity
-@Table(name = "orders")
+@Table(name = "cart_item")
 @Getter
 @Setter
-@NoArgsConstructor
 @ToString(onlyExplicitlyIncluded = true)
+@NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class Order {
+public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @ToString.Include
     private Long id;
 
     @ToString.Include
-    private BigDecimal price;
-
-    @ToString.Include
-    private LocalDateTime date;
-
     @ManyToOne
-    @ToString.Include
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "variant_id")
+    private Variant variant;
 
     @ToString.Include
-    private String address;
+    @ManyToOne
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
 
     @ToString.Include
-    private String paymentMethodUsed;
+    private int quantity;
 }
